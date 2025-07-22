@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { UserContext } from '../../context/userContext'
 import DashboardLayout from '../../components/layouts/DashboardLayout'
 import axiosInstance from '../../utils/axiosInstance'
 import ExpenseOveriew from '../../components/Expense/ExpenseOveriew'
@@ -8,6 +7,7 @@ import AddExpenseForm from '../../components/Expense/AddExpenseForm'
 import { toast } from 'react-toastify';
 import ExpenseList from '../../components/Expense/ExpenseList'
 import DeleteAlert from '../../components/layouts/DeleteAlert'
+import { UserContext } from '../../context/UserContext'
 
 const Expense = () => {
   const {getUserData} = useContext(UserContext)
@@ -67,7 +67,6 @@ const Expense = () => {
   }
 
   const deleteExpense = async(id) => {
-    console.log(id)
     try {
       const res = await axiosInstance.delete('/api/v1/expense/deleteExpense/'+id)
       if(res.data && res.data.success){
@@ -99,10 +98,15 @@ const Expense = () => {
     }
   }
 
-  useEffect(()=>{
-    getUserData(),
-    fetchExpenseDetails()
-  }, [])
+  useEffect(() => {
+    try {
+      getUserData();
+      fetchExpenseDetails()
+    } catch (err) {
+      console.error("getUserData failed", err);
+    }
+  }, []);
+  
   return (
     <DashboardLayout activeMenu="Expense"> 
     <div className="my-5 mx-auto">

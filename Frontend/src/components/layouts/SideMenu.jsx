@@ -1,17 +1,19 @@
 import React, { useContext } from "react";
 import { SIDE_MENU_DATA } from "../../utils/data";
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../../context/UserContext";
 import { NavLink, useNavigate } from "react-router-dom";
 import CharAvatar from "../Cards/CharAvatar";
 const SideMenu = ({ activeMenu }) => {
   const { user, clearUser } = useContext(UserContext);
   const navigate = useNavigate();
   const handleClick = (route) => {
-    if (route === "/logout") {
+    if (route === "logout") {
       handleLogout();
       return
     }
-    navigate(route)
+    else if(route !== 'logout'){
+      navigate(route)
+    }
   };
   
   const handleLogout = () => {
@@ -38,13 +40,13 @@ const SideMenu = ({ activeMenu }) => {
       </div>
       {SIDE_MENU_DATA.map((item, idx) => (
         <NavLink
-          to={item.path}
+          to={item.path != 'logout' ? item.path : '/login'}
           key={`menu_${idx}`}
           className={({ isActive }) =>
           `cursor-pointer w-full flex items-center gap-4 text-[15px] py-3 px-6 rounded-lg mb-3
            ${isActive ? "text-white bg-primary" : "hover:bg-gray-100"}`
         }
-          // onClick={() => handleClick(item.path)}
+          onClick={() => handleClick(item.path)}
         >
           <item.icon className="" />
           {item.label}

@@ -5,8 +5,7 @@ import AuthLayout from "../../components/layouts/AuthLayout";
 import Input from "../../components/Inputs/Input";
 import ProfilePhotoSelector from "../../components/Inputs/ProfilePhotoSelector";
 import axiosInstance from "../../utils/axiosInstance";
-import { API_PATHS } from "../../utils/apiPaths";
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../../context/UserContext";
 
 const Signup = () => {
   const [fullName, setFullName] = useState("");
@@ -16,12 +15,11 @@ const Signup = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false)
   
-  const {updateUser} = useContext(UserContext)
+  const {updateUserData} = useContext(UserContext)
 
   const navigate = useNavigate();
   const handleSignup = async (e) => {
     e.preventDefault();
-    let profilePicUrl = ""
     if(!fullName){
       setError("Full Name is required!")
       return
@@ -39,7 +37,6 @@ const Signup = () => {
     formData.append("email", email.toLowerCase())
     formData.append("password", password)
     formData.append("image", profilePic)
-    console.log(profilePic)
     try {
       setLoading(true)
       const res = await axiosInstance.post('/api/v1/auth/register', formData, {
@@ -48,11 +45,9 @@ const Signup = () => {
         }
       });
       
-      console.log(res.data)
       if(res.data && res.data.success){
         localStorage.setItem("token", res.data.data.accessToken)
         navigate('/dashboard')
-        updateUser(res.data.data)
       }
     } catch (error) {
       if(error && error.response && error.response.data && error.response.data.message){

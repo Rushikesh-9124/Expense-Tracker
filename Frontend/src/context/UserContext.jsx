@@ -24,8 +24,9 @@ const UserProvider = ({ children }) => {
     setUser(null);
   };
 
+  const accessToken = !!localStorage.getItem("token")
   useEffect(()=>{
-    getUserData()
+    accessToken && getUserData()
   }, [])
 
   return (
