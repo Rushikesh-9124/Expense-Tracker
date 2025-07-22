@@ -5,9 +5,7 @@ import {
   LuTrendingDown,
   LuTrash2,
 } from "react-icons/lu";
-import axiosInstance from "../../utils/axiosInstance";
-import { UserContext } from "../../context/userContext";
-import { DataContext } from "../../pages/Dashboard/Home";
+
 
 const TransactionCardInfo = ({
   title,

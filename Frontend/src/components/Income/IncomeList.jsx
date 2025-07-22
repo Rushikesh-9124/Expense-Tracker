@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import TransactionCardInfo from '../Cards/TransactionCardInfo'
 import dayjs from 'dayjs'
-import { DataContext } from '../../pages/Dashboard/Home'
 import { LuDownload } from 'react-icons/lu'
 
 const IncomeList = ({transactions, onDelete, onDownload}) => {

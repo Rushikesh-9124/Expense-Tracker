@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
@@ -15,7 +15,6 @@ import Last30DaysExpense from "../../components/Dashboard/Last30DaysExpense";
 import RecentIncomeWithChart from "../../components/Dashboard/RecentIncomeWithChart";
 import RecentIncome from "../../components/Dashboard/RecentIncome";
 
-export const DataContext = createContext()
 
 const Home = () => {
   const { updateUserData } = useContext(UserContext);
@@ -63,7 +62,6 @@ const Home = () => {
 
   return (
     <div>
-      <DataContext.Provider value={fetchDashboardData}>
       <DashboardLayout activeMenu="Dashboard">
         {loading ? (
           <div className="flex items-center justify-center relative -top-15 bg-white">
@@ -123,7 +121,6 @@ const Home = () => {
           </div>
         )}
       </DashboardLayout>
-      </DataContext.Provider>
     </div>
   );
 };

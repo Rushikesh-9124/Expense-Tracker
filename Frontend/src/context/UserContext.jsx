@@ -9,7 +9,6 @@ const UserProvider = ({ children }) => {
     try {
       const res = await axiosInstance.get("/get-user");
       if (res.data.success) {
-        setUser(res.data.user);
         updateUserData(res.data.user);
       }
     } catch (error) {
